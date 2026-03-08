@@ -1,4 +1,5 @@
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 export default function HelloMars() {
   return (
@@ -7,6 +8,7 @@ export default function HelloMars() {
       <main className="flex min-h-screen items-center justify-center">
         <h1 className="text-4xl font-bold">Hello Mars</h1>
       </main>
+      <Footer />
     </>
   );
 }
