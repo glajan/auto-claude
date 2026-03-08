@@ -1,0 +1,45 @@
+name: Claude Autonomous Build
+
+on:
+  pull_request:
+    types: [closed]        # you merged → next ticket
+  issue_comment:
+    types: [created]       # you left feedback → iterate
+
+jobs:
+  next-ticket:
+    # Only trigger on Claude's PRs, not all PRs
+    if: |
+      (github.event_name == 'pull_request' && 
+       github.event.pull_request.merged == true && 
+       contains(github.event.pull_request.labels.*.name, 'claude-built'))
+      ||
+      (github.event_name == 'issue_comment')
+    
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+      - run: npm ci
+      - run: npm install -g @anthropic-ai/claude-code
+
+      # Flow 1: PR merged → pick next ticket
+      - name: Start next ticket
+        if: github.event_name == 'pull_request'
+        run: |
+          claude --print "The last PR was merged. Pick the next open 
+          issue labeled claude-todo and build it end to end per CLAUDE.md."
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # Flow 2: Comment left → address feedback
+      - name: Address PR feedback
+        if: github.event_name == 'issue_comment'
+        run: |
+          claude --print "A reviewer left this feedback: 
+          '${{ github.event.comment.body }}'
+          Address it and push fixes to the same branch."
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
