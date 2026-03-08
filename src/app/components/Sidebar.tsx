@@ -12,7 +12,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
     <>
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+          className="fixed inset-0 bg-black bg-opacity-50 z-40"
           onClick={onClose}
         />
       )}
@@ -21,6 +21,15 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
+        <div className="flex justify-end p-4">
+          <button
+            onClick={onClose}
+            aria-label="Close sidebar"
+            className="text-white hover:text-gray-300 transition-colors"
+          >
+            ✕
+          </button>
+        </div>
         <nav className="flex flex-col gap-4 p-6">
           <Link
             href="/"

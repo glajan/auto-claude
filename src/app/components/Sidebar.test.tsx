@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import Sidebar from "./Sidebar";
 
 describe("Sidebar", () => {
@@ -40,6 +40,26 @@ describe("Sidebar", () => {
       ".fixed.inset-0.bg-black.bg-opacity-50"
     );
     expect(backdrop).toBeInTheDocument();
+  });
+
+  it("renders a close button", () => {
+    render(<Sidebar isOpen={true} onClose={() => {}} />);
+    expect(screen.getByRole("button", { name: /close sidebar/i })).toBeInTheDocument();
+  });
+
+  it("calls onClose when close button is clicked", () => {
+    const onClose = jest.fn();
+    render(<Sidebar isOpen={true} onClose={onClose} />);
+    fireEvent.click(screen.getByRole("button", { name: /close sidebar/i }));
+    expect(onClose).toHaveBeenCalledTimes(1);
+  });
+
+  it("calls onClose when clicking outside the sidebar", () => {
+    const onClose = jest.fn();
+    const { container } = render(<Sidebar isOpen={true} onClose={onClose} />);
+    const backdrop = container.querySelector(".fixed.inset-0.bg-black.bg-opacity-50");
+    fireEvent.click(backdrop!);
+    expect(onClose).toHaveBeenCalledTimes(1);
   });
 
   it("sidebar is positioned on the right side", () => {
