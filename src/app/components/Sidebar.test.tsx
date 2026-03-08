@@ -36,9 +36,7 @@ describe("Sidebar", () => {
     const { container } = render(
       <Sidebar isOpen={true} onClose={() => {}} />
     );
-    const backdrop = container.querySelector(
-      ".fixed.inset-0.bg-black.bg-opacity-50"
-    );
+    const backdrop = container.querySelector(".fixed.inset-0");
     expect(backdrop).toBeInTheDocument();
   });
 
@@ -57,7 +55,7 @@ describe("Sidebar", () => {
   it("calls onClose when clicking outside the sidebar", () => {
     const onClose = jest.fn();
     const { container } = render(<Sidebar isOpen={true} onClose={onClose} />);
-    const backdrop = container.querySelector(".fixed.inset-0.bg-black.bg-opacity-50");
+    const backdrop = container.querySelector(".fixed.inset-0");
     fireEvent.click(backdrop!);
     expect(onClose).toHaveBeenCalledTimes(1);
   });
