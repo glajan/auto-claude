@@ -41,4 +41,29 @@ describe("Sidebar", () => {
     );
     expect(backdrop).toBeInTheDocument();
   });
+
+  it("sidebar is positioned on the right side", () => {
+    const { container } = render(
+      <Sidebar isOpen={true} onClose={() => {}} />
+    );
+    const aside = container.querySelector("aside");
+    expect(aside?.className).toContain("right-0");
+  });
+
+  it("sidebar has full screen height", () => {
+    const { container } = render(
+      <Sidebar isOpen={true} onClose={() => {}} />
+    );
+    const aside = container.querySelector("aside");
+    expect(aside?.className).toContain("h-screen");
+    expect(aside?.className).toContain("top-0");
+  });
+
+  it("sidebar slides out to the right when closed", () => {
+    const { container } = render(
+      <Sidebar isOpen={false} onClose={() => {}} />
+    );
+    const aside = container.querySelector("aside");
+    expect(aside?.className).toContain("translate-x-full");
+  });
 });

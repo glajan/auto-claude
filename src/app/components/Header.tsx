@@ -34,7 +34,7 @@ export default function Header({ onToggleSidebar }: HeaderProps) {
           </ul>
           <button
             onClick={onToggleSidebar}
-            className="lg:hidden p-2 hover:bg-gray-700 rounded transition-colors"
+            className="p-2 hover:bg-gray-700 rounded transition-colors"
             aria-label="Toggle sidebar"
           >
             <svg

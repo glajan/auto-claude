@@ -17,8 +17,8 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
         />
       )}
       <aside
-        className={`fixed right-0 top-0 h-screen w-64 bg-gray-900 text-white transform transition-transform duration-300 z-50 lg:relative lg:top-auto lg:h-full lg:translate-x-0 lg:bg-gray-800 ${
-          isOpen ? "translate-x-0" : "translate-x-full lg:translate-x-0"
+        className={`fixed right-0 top-0 h-screen w-64 bg-gray-900 text-white transform transition-transform duration-300 z-50 ${
+          isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
         <nav className="flex flex-col gap-4 p-6">
