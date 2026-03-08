@@ -41,7 +41,7 @@ jobs:
       - name: Start next ticket
         if: github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch'
         run: |
-          claude --dangerously-skip-permissions --print "The last PR was merged. Pick the next open
+          claude --dangerously-skip-permissions --model claude-haiku-4-5-20251001 --print "The last PR was merged. Pick the next open
           issue labeled claude-todo and build it end to end per CLAUDE.md."
         env:
           ANTHROPIC_API_KEY: ${{ secrets.AUTO_CLAUDE_ANTROPIC_API_KEY }}
@@ -51,7 +51,7 @@ jobs:
       - name: Address PR feedback
         if: github.event_name == 'issue_comment'
         run: |
-          claude --dangerously-skip-permissions --print "A reviewer left this feedback:
+          claude --dangerously-skip-permissions --model claude-haiku-4-5-20251001 --print "A reviewer left this feedback:
           '${{ github.event.comment.body }}'
           Address it and push fixes to the same branch."
         env:
