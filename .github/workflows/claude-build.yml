@@ -41,8 +41,8 @@ jobs:
           claude --print "The last PR was merged. Pick the next open
           issue labeled claude-todo and build it end to end per CLAUDE.md."
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ANTHROPIC_API_KEY: ${{ secrets.AUTO_CLAUDE_ANTROPIC_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.AUTO_CLAUDE_GITHUB_PERSONAL_ACCESS_TOKEN }}
 
       # Flow 2: Comment left → address feedback
       - name: Address PR feedback
@@ -52,5 +52,5 @@ jobs:
           '${{ github.event.comment.body }}'
           Address it and push fixes to the same branch."
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ANTHROPIC_API_KEY: ${{ secrets.AUTO_CLAUDE_ANTROPIC_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.AUTO_CLAUDE_GITHUB_PERSONAL_ACCESS_TOKEN }}
