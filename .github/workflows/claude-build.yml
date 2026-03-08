@@ -7,6 +7,10 @@ on:
     types: [created]       # you left feedback → iterate
   workflow_dispatch:       # manual trigger → next ticket
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   next-ticket:
     # Only trigger on Claude's PRs, not all PRs
