@@ -5,6 +5,7 @@ on:
     types: [closed]        # you merged → next ticket
   issue_comment:
     types: [created]       # you left feedback → iterate
+  workflow_dispatch:       # manual trigger → next ticket
 
 jobs:
   next-ticket:
@@ -15,6 +16,8 @@ jobs:
        contains(github.event.pull_request.labels.*.name, 'claude-built'))
       ||
       (github.event_name == 'issue_comment')
+      ||
+      (github.event_name == 'workflow_dispatch')
 
     runs-on: ubuntu-latest
     steps:
@@ -34,9 +37,9 @@ jobs:
       - run: npm ci
       - run: npm install -g @anthropic-ai/claude-code
 
-      # Flow 1: PR merged → pick next ticket
+      # Flow 1: PR merged or manual trigger → pick next ticket
       - name: Start next ticket
-        if: github.event_name == 'pull_request'
+        if: github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch'
         run: |
           claude --dangerously-skip-permissions --print "The last PR was merged. Pick the next open
           issue labeled claude-todo and build it end to end per CLAUDE.md."
