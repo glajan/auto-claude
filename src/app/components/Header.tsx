@@ -9,7 +9,7 @@ interface HeaderProps {
 export default function Header({ onToggleSidebar }: HeaderProps) {
   return (
     <header className="bg-gray-800 text-white shadow-lg relative z-30">
-      <nav className="container mx-auto px-6 py-4 flex items-center justify-between">
+      <nav className="container mx-auto pl-6 pr-4 py-4 flex items-center justify-between">
         <Link href="/" className="text-2xl font-bold hover:text-gray-300">
           MyApp
         </Link>
@@ -34,7 +34,7 @@ export default function Header({ onToggleSidebar }: HeaderProps) {
           </ul>
           <button
             onClick={onToggleSidebar}
-            className="p-2 hover:bg-gray-700 rounded transition-colors"
+            className="lg:hidden p-2 hover:bg-gray-700 rounded transition-colors"
             aria-label="Toggle sidebar"
           >
             <svg
