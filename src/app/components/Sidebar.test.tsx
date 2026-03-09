@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import Sidebar from "./Sidebar";
 
 describe("Sidebar", () => {
@@ -36,9 +36,52 @@ describe("Sidebar", () => {
     const { container } = render(
       <Sidebar isOpen={true} onClose={() => {}} />
     );
-    const backdrop = container.querySelector(
-      ".fixed.inset-0.bg-black.bg-opacity-50"
-    );
+    const backdrop = container.querySelector(".fixed.inset-0");
     expect(backdrop).toBeInTheDocument();
+  });
+
+  it("renders a close button", () => {
+    render(<Sidebar isOpen={true} onClose={() => {}} />);
+    expect(screen.getByRole("button", { name: /close sidebar/i })).toBeInTheDocument();
+  });
+
+  it("calls onClose when close button is clicked", () => {
+    const onClose = jest.fn();
+    render(<Sidebar isOpen={true} onClose={onClose} />);
+    fireEvent.click(screen.getByRole("button", { name: /close sidebar/i }));
+    expect(onClose).toHaveBeenCalledTimes(1);
+  });
+
+  it("calls onClose when clicking outside the sidebar", () => {
+    const onClose = jest.fn();
+    const { container } = render(<Sidebar isOpen={true} onClose={onClose} />);
+    const backdrop = container.querySelector(".fixed.inset-0");
+    fireEvent.click(backdrop!);
+    expect(onClose).toHaveBeenCalledTimes(1);
+  });
+
+  it("sidebar is positioned on the right side", () => {
+    const { container } = render(
+      <Sidebar isOpen={true} onClose={() => {}} />
+    );
+    const aside = container.querySelector("aside");
+    expect(aside?.className).toContain("right-0");
+  });
+
+  it("sidebar has full screen height", () => {
+    const { container } = render(
+      <Sidebar isOpen={true} onClose={() => {}} />
+    );
+    const aside = container.querySelector("aside");
+    expect(aside?.className).toContain("h-screen");
+    expect(aside?.className).toContain("top-0");
+  });
+
+  it("sidebar slides out to the right when closed", () => {
+    const { container } = render(
+      <Sidebar isOpen={false} onClose={() => {}} />
+    );
+    const aside = container.querySelector("aside");
+    expect(aside?.className).toContain("translate-x-full");
   });
 });

@@ -12,15 +12,24 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
     <>
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+          className="fixed inset-0 z-40 bg-black/50"
           onClick={onClose}
         />
       )}
       <aside
-        className={`fixed left-0 top-16 h-[calc(100vh-4rem)] w-64 bg-gray-900 text-white transform transition-transform duration-300 z-50 lg:relative lg:translate-x-0 lg:top-0 lg:h-auto lg:bg-gray-800 ${
-          isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
+        className={`fixed right-0 top-0 h-screen w-64 bg-gray-900 text-white transform transition-transform duration-300 z-50 ${
+          isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
+        <div className="flex justify-end p-4">
+          <button
+            onClick={onClose}
+            aria-label="Close sidebar"
+            className="text-white hover:text-gray-300 transition-colors"
+          >
+            ✕
+          </button>
+        </div>
         <nav className="flex flex-col gap-4 p-6">
           <Link
             href="/"
