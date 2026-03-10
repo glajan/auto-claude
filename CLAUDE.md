@@ -12,8 +12,10 @@ Next.js 16, TypeScript 6, Tailwind CSS 4
 
 ## Coding Standards
 Read and follow these skill documents when writing React/Next.js code:
-- `.claude/skills/react-best-practices.md` + `.claude/skills/react-best-practices-rules/` — performance optimization rules
-- `.claude/skills/composition-patterns.md` + `.claude/skills/composition-patterns-rules/` — component composition patterns
+- `.claude/skills/react-best-practices/` — performance optimization rules
+- `.claude/skills/composition-patterns/` — component composition patterns
+- `.claude/skills/web-design-guidelines/` — web design guidelines
+- `.claude/skills/deploy-to-vercel/` — deployment to Vercel
 
 ## Workflow
 1. Pick an open GitHub Issue labeled `claude-todo`
