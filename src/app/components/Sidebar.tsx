@@ -20,7 +20,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
         />
       ) : null}
       <aside
-        className={`fixed right-0 top-0 h-screen w-64 bg-gray-900 text-white transform transition-transform duration-300 z-50 ${
+        className={`fixed right-0 top-0 h-screen w-64 bg-base-200 text-base-content transform transition-transform duration-300 z-50 ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
@@ -28,27 +28,23 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
           <button
             onClick={onClose}
             aria-label="Close sidebar"
-            className="cursor-pointer text-white hover:text-gray-300 transition-colors"
+            className="btn btn-ghost btn-circle btn-sm"
           >
             <CloseIcon />
           </button>
         </div>
-        <nav className="flex flex-col gap-4 p-6">
-          <Link
-            href="/"
-            className="text-lg hover:text-gray-300 transition-colors"
-            onClick={onClose}
-          >
-            Home
-          </Link>
-          <Link
-            href="/hello-mars"
-            className="text-lg hover:text-gray-300 transition-colors"
-            onClick={onClose}
-          >
-            Mars
-          </Link>
-        </nav>
+        <ul className="menu p-4 gap-2">
+          <li>
+            <Link href="/" onClick={onClose}>
+              Home
+            </Link>
+          </li>
+          <li>
+            <Link href="/hello-mars" onClick={onClose}>
+              Mars
+            </Link>
+          </li>
+        </ul>
       </aside>
     </>
   );
