@@ -5,6 +5,8 @@ on:
     types: [closed]        # you merged → next ticket
   issue_comment:
     types: [created]       # you left feedback → iterate
+  pull_request_review:
+    types: [submitted]     # you submitted a code review → iterate
   workflow_dispatch:       # manual trigger → next ticket
 
 permissions:
@@ -21,6 +23,8 @@ jobs:
       ||
       (github.event_name == 'issue_comment')
       ||
+      (github.event_name == 'pull_request_review')
+      ||
       (github.event_name == 'workflow_dispatch')
 
     runs-on: ubuntu-latest
@@ -34,6 +38,13 @@ jobs:
         run: |
           branch=$(gh api repos/${{ github.repository }}/pulls/${{ github.event.issue.number }} --jq '.head.ref')
           git checkout $branch
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Switch to PR branch (on pull request review)
+        if: github.event_name == 'pull_request_review'
+        run: |
+          git checkout ${{ github.event.pull_request.head.ref }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -63,6 +74,17 @@ jobs:
         run: |
           claude --dangerously-skip-permissions --model claude-sonnet-4-6 --print "A reviewer left this feedback:
           '${{ github.event.comment.body }}'
+          Address it and push fixes to the same branch."
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.AUTO_CLAUDE_ANTROPIC_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.AUTO_CLAUDE_GITHUB_PERSONAL_ACCESS_TOKEN }}
+
+      # Flow 3: Code review submitted → address review feedback
+      - name: Address code review feedback
+        if: github.event_name == 'pull_request_review'
+        run: |
+          claude --dangerously-skip-permissions --model claude-sonnet-4-6 --print "A reviewer submitted a code review with the following feedback:
+          '${{ github.event.review.body }}'
           Address it and push fixes to the same branch."
         env:
           ANTHROPIC_API_KEY: ${{ secrets.AUTO_CLAUDE_ANTROPIC_API_KEY }}
