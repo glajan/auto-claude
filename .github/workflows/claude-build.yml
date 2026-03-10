@@ -41,6 +41,17 @@ jobs:
       - run: npm ci
       - run: npm install -g @anthropic-ai/claude-code
 
+      - name: Print available skills
+        run: |
+          echo "=== Skills available to Claude CLI ==="
+          if [ -d ".claude/skills" ]; then
+            find .claude/skills -name "*.md" -o -name "*.json" -o -name "*.sh" | sort
+          else
+            echo "No .claude/skills directory found"
+          fi
+          echo "=== CLAUDE.md ==="
+          cat CLAUDE.md
+
       # Flow 1: PR merged or manual trigger → pick next ticket
       - name: Start next ticket
         if: github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch'
