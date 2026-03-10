@@ -41,6 +41,12 @@ jobs:
       - run: npm ci
       - run: npm install -g @anthropic-ai/claude-code
 
+      - name: Print available skills
+        run: |
+          claude --dangerously-skip-permissions --model claude-sonnet-4-6 --print "List all skills and commands available to you in this project, including any in .claude/skills/."
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.AUTO_CLAUDE_ANTROPIC_API_KEY }}
+
       # Flow 1: PR merged or manual trigger → pick next ticket
       - name: Start next ticket
         if: github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch'
