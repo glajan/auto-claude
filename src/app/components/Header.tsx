@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import MenuIcon from "./svg/MenuIcon";
+import { Menu } from "lucide-react";
 
 interface HeaderProps {
   onToggleSidebar: () => void;
@@ -29,7 +29,7 @@ export default function Header({ onToggleSidebar }: HeaderProps) {
           className="btn btn-ghost btn-square lg:hidden"
           aria-label="Toggle sidebar"
         >
-          <MenuIcon />
+          <Menu className="w-6 h-6" />
         </button>
       </div>
     </header>

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import CloseIcon from "./svg/CloseIcon";
+import { X } from "lucide-react";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -30,7 +30,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
             aria-label="Close sidebar"
             className="btn btn-ghost btn-circle btn-sm"
           >
-            <CloseIcon />
+            <X className="w-6 h-6" />
           </button>
         </div>
         <ul className="menu p-4 gap-2">
