@@ -12,7 +12,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
     <>
       {isOpen ? (
         <button
-          className="fixed inset-0 z-40 bg-black/50 cursor-default"
+          className="fixed inset-0 z-40 bg-black/50 cursor-pointer"
           onClick={onClose}
           aria-hidden="true"
           tabIndex={-1}
