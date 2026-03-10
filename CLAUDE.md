@@ -10,6 +10,11 @@ Next.js 16, TypeScript 6, Tailwind CSS 4
 - Branch names: `claude/issue-{number}`
 - Commit format: conventional commits
 
+## Coding Standards
+Read and follow these skill documents when writing React/Next.js code:
+- `.claude/skills/react-best-practices.md` — performance optimization rules
+- `.claude/skills/composition-patterns.md` — component composition patterns
+
 ## Workflow
 1. Pick an open GitHub Issue labeled `claude-todo`
 2. Create a branch
