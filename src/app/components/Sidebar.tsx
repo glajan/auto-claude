@@ -10,12 +10,14 @@ interface SidebarProps {
 export default function Sidebar({ isOpen, onClose }: SidebarProps) {
   return (
     <>
-      {isOpen && (
-        <div
-          className="fixed inset-0 z-40 bg-black/50"
+      {isOpen ? (
+        <button
+          className="fixed inset-0 z-40 bg-black/50 cursor-default"
           onClick={onClose}
+          aria-hidden="true"
+          tabIndex={-1}
         />
-      )}
+      ) : null}
       <aside
         className={`fixed right-0 top-0 h-screen w-64 bg-gray-900 text-white transform transition-transform duration-300 z-50 ${
           isOpen ? "translate-x-0" : "translate-x-full"
@@ -25,7 +27,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
           <button
             onClick={onClose}
             aria-label="Close sidebar"
-            className="text-white hover:text-gray-300 transition-colors"
+            className="cursor-pointer text-white hover:text-gray-300 transition-colors"
           >
             ✕
           </button>
