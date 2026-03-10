@@ -43,14 +43,9 @@ jobs:
 
       - name: Print available skills
         run: |
-          echo "=== Skills available to Claude CLI ==="
-          if [ -d ".claude/skills" ]; then
-            find .claude/skills -name "*.md" -o -name "*.json" -o -name "*.sh" | sort
-          else
-            echo "No .claude/skills directory found"
-          fi
-          echo "=== CLAUDE.md ==="
-          cat CLAUDE.md
+          claude --dangerously-skip-permissions --model claude-sonnet-4-6 --print "List all skills and commands available to you in this project, including any in .claude/skills/."
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.AUTO_CLAUDE_ANTROPIC_API_KEY }}
 
       # Flow 1: PR merged or manual trigger → pick next ticket
       - name: Start next ticket
