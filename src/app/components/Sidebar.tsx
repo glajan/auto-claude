@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import CloseIcon from "./svg/CloseIcon";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -29,7 +30,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
             aria-label="Close sidebar"
             className="cursor-pointer text-white hover:text-gray-300 transition-colors"
           >
-            ✕
+            <CloseIcon />
           </button>
         </div>
         <nav className="flex flex-col gap-4 p-6">
