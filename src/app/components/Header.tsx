@@ -10,38 +10,36 @@ interface HeaderProps {
 export default function Header({ onToggleSidebar }: HeaderProps) {
   return (
     <header className="bg-gray-800 text-white shadow-lg relative z-30">
-      <nav className="container mx-auto pl-6 pr-4 py-4 flex items-center justify-between">
+      <nav className="container mx-auto pl-6 pr-4 py-4 flex items-center">
         <Link href="/" className="text-2xl font-bold hover:text-gray-300">
           MyApp
         </Link>
-        <div className="flex items-center gap-6">
-          <ul className="hidden lg:flex gap-6">
-            <li>
-              <Link
-                href="/"
-                className="text-lg hover:text-gray-300 transition-colors"
-              >
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/hello-mars"
-                className="text-lg hover:text-gray-300 transition-colors"
-              >
-                Mars
-              </Link>
-            </li>
-          </ul>
-          <button
-            onClick={onToggleSidebar}
-            className="lg:hidden p-2 hover:bg-gray-700 rounded transition-colors"
-            aria-label="Toggle sidebar"
-          >
-            <MenuIcon />
-          </button>
-        </div>
+        <ul className="hidden lg:flex gap-6 ml-auto">
+          <li>
+            <Link
+              href="/"
+              className="text-lg hover:text-gray-300 transition-colors"
+            >
+              Home
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/hello-mars"
+              className="text-lg hover:text-gray-300 transition-colors"
+            >
+              Mars
+            </Link>
+          </li>
+        </ul>
       </nav>
+      <button
+        onClick={onToggleSidebar}
+        className="lg:hidden absolute top-0 right-0 p-4 hover:bg-gray-700 rounded transition-colors"
+        aria-label="Toggle sidebar"
+      >
+        <MenuIcon />
+      </button>
     </header>
   );
 }

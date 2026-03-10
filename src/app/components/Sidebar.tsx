@@ -29,7 +29,19 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
             aria-label="Close sidebar"
             className="cursor-pointer text-white hover:text-gray-300 transition-colors"
           >
-            ✕
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
           </button>
         </div>
         <nav className="flex flex-col gap-4 p-6">
