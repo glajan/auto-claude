@@ -12,7 +12,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
     <>
       {isOpen ? (
         <button
-          className="fixed inset-0 z-40 bg-black/50 cursor-pointer"
+          className="fixed inset-0 z-40 bg-black/50 cursor-default"
           onClick={onClose}
           aria-hidden="true"
           tabIndex={-1}
@@ -27,7 +27,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
           <button
             onClick={onClose}
             aria-label="Close sidebar"
-            className="text-white hover:text-gray-300 transition-colors"
+            className="cursor-pointer text-white hover:text-gray-300 transition-colors"
           >
             ✕
           </button>
