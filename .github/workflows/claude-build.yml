@@ -28,6 +28,8 @@ jobs:
       (github.event_name == 'workflow_dispatch')
 
     runs-on: ubuntu-latest
+    env:
+      CLAUDE_MODEL: ${{ env.CLAUDE_MODEL }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -52,17 +54,14 @@ jobs:
       - run: npm ci
       - run: npm install -g @anthropic-ai/claude-code
 
-      - name: Print available skills
-        run: |
-          claude --dangerously-skip-permissions --model claude-sonnet-4-6 --print "List all skills and commands available to you in this project, including any in .claude/skills/."
-        env:
-          ANTHROPIC_API_KEY: ${{ secrets.AUTO_CLAUDE_ANTROPIC_API_KEY }}
+      - name: Print model
+        run: echo "Using model: ${{ env.CLAUDE_MODEL }}"
 
-      # Flow 1: PR merged or manual trigger → pick next ticket
+# Flow 1: PR merged or manual trigger → pick next ticket
       - name: Start next ticket
         if: github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch'
         run: |
-          claude --dangerously-skip-permissions --model claude-sonnet-4-6 --print "The last PR was merged. Pick the next open
+          claude --dangerously-skip-permissions --model ${{ env.CLAUDE_MODEL }} --print "The last PR was merged. Pick the next open
           issue labeled claude-todo and build it end to end per CLAUDE.md."
         env:
           ANTHROPIC_API_KEY: ${{ secrets.AUTO_CLAUDE_ANTROPIC_API_KEY }}
@@ -72,7 +71,7 @@ jobs:
       - name: Address PR feedback
         if: github.event_name == 'issue_comment'
         run: |
-          claude --dangerously-skip-permissions --model claude-sonnet-4-6 --print "A reviewer left this feedback:
+          claude --dangerously-skip-permissions --model ${{ env.CLAUDE_MODEL }} --print "A reviewer left this feedback:
           '${{ github.event.comment.body }}'
           Address it and push fixes to the same branch."
         env:
@@ -83,7 +82,7 @@ jobs:
       - name: Address code review feedback
         if: github.event_name == 'pull_request_review'
         run: |
-          claude --dangerously-skip-permissions --model claude-sonnet-4-6 --print "A reviewer submitted a code review with the following feedback:
+          claude --dangerously-skip-permissions --model ${{ env.CLAUDE_MODEL }} --print "A reviewer submitted a code review with the following feedback:
           '${{ github.event.review.body }}'
           Address it and push fixes to the same branch."
         env:
